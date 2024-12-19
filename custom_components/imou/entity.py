@@ -1,30 +1,39 @@
 """An abstract class commom to all IMOU entities."""
-import logging
 
-from homeassistant.components.button import ButtonDeviceClass
+from pyimouapi.ha_device import ImouHaDevice, DeviceStatus
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-
 from . import ImouDataUpdateCoordinator
-from .const import PARAM_RESTART_DEVICE, DOMAIN, PARAM_STATUS
-from pyimouapi.ha_device import ImouHaDevice, DeviceStatus
-
-_LOGGER: logging.Logger = logging.getLogger(__package__)
+from .const import DOMAIN, PARAM_STATUS
 
 
 class ImouEntity(CoordinatorEntity):
     """EntityBaseClass"""
+
     _attr_has_entity_name = True
 
-    def __init__(self, coordinator: ImouDataUpdateCoordinator, config_entry: ConfigEntry, entity_type: str,
-                 device: ImouHaDevice):
+    def __init__(
+        self,
+        coordinator: ImouDataUpdateCoordinator,
+        config_entry: ConfigEntry,
+        entity_type: str,
+        device: ImouHaDevice,
+    ) -> None:
         super().__init__(coordinator)
+        self.coordinator = coordinator
         self.config_entry = config_entry
         self._entity_type = entity_type
         self._device = device
         self.entity_available = None
-        self._unique_id = self._device.device_id + "_" + self._device.channel_id + "#" + self._entity_type
+        self._unique_id = (
+            self._device.device_id
+            + "_"
+            + self._device.channel_id
+            + "#"
+            + self._entity_type
+        )
         self._attr_translation_key = entity_type
 
     @property
@@ -39,19 +48,13 @@ class ImouEntity(CoordinatorEntity):
             manufacturer=self._device.manufacturer,
             model=self._device.model,
             sw_version=self._device.swversion,
-            serial_number=self._device.device_id
+            serial_number=self._device.device_id,
         )
 
     @property
     def unique_id(self):
         """Return a unique ID to use for this entity."""
         return self._unique_id
-
-    @property
-    def device_class(self) -> str | None:
-        if self._entity_type == PARAM_RESTART_DEVICE:
-            return ButtonDeviceClass.RESTART
-        return None
 
     @property
     def translation_key(self):
@@ -62,9 +65,3 @@ class ImouEntity(CoordinatorEntity):
         if self._entity_type == PARAM_STATUS:
             return True
         return self._device.sensors[PARAM_STATUS] != DeviceStatus.OFFLINE.status
-
-    @property
-    def state(self) -> str | None:
-        if self._entity_type == PARAM_STATUS:
-            return self._device.sensors[PARAM_STATUS]
-        return super().state
