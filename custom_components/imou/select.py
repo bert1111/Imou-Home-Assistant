@@ -10,13 +10,13 @@ from .entity import ImouEntity
 from .const import DOMAIN, PARAM_OPTIONS, PARAM_CURRENT_OPTION
 from pyimouapi.exceptions import ImouException
 
-_LOGGER: logging.Logger = logging.getLogger(__package__)
+LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
 async def async_setup_entry(
         hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
-    _LOGGER.info("ImouSelect.async_setup_entry")
+    LOGGER.info("ImouSelect.async_setup_entry")
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
