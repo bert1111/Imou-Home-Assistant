@@ -4,26 +4,27 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .entity import ImouEntity
 from .const import DOMAIN
+from .entity import ImouEntity
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
-async def async_setup_entry(
-        hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
+async def async_setup_entry(  # noqa: D103
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        for sensor in device.sensors.keys():
-            entities.append(ImouSensor(imou_coordinator, entry, sensor, device))
+        for sensor in device.sensors:
+            sensor_entity = ImouSensor(imou_coordinator, entry, sensor.key, device)
+            entities.append(sensor_entity)
     async_add_entities(entities)
 
 
 class ImouSensor(ImouEntity):
-    """imou sensor"""
+    """imou sensor."""
 
     @property
-    def state(self):
+    def state(self):  # noqa: D102
         return self._device.sensors[self._entity_type]
