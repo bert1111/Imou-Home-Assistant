@@ -21,8 +21,8 @@ async def async_setup_entry(  # noqa: D103
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities: list[ImouSelect] = []
     for device in imou_coordinator.devices:
-        for select in device.selects:
-            select_entity = ImouSelect(imou_coordinator, entry, select.key, device)
+        for select_type in device.selects:
+            select_entity = ImouSelect(imou_coordinator, entry, select_type, device)
             entities.append(select_entity)
     async_add_entities(entities)
 
