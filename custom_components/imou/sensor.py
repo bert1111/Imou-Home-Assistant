@@ -16,8 +16,8 @@ async def async_setup_entry(  # noqa: D103
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        for sensor in device.sensors:
-            sensor_entity = ImouSensor(imou_coordinator, entry, sensor.key, device)
+        for sensor_type in device.sensors:
+            sensor_entity = ImouSensor(imou_coordinator, entry, sensor_type, device)
             entities.append(sensor_entity)
     async_add_entities(entities)
 

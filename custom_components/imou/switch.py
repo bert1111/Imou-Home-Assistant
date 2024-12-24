@@ -22,8 +22,8 @@ async def async_setup_entry(  # noqa: D103
     imou_coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
     for device in imou_coordinator.devices:
-        for switch in device.switches:
-            switch_entity = ImouSwitch(imou_coordinator, entry, switch.key, device)
+        for switch_type in device.switches:
+            switch_entity = ImouSwitch(imou_coordinator, entry, switch_type, device)
             entities.append(switch_entity)
     async_add_entities(entities)
 
