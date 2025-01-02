@@ -44,23 +44,23 @@ class ImouCamera(ImouEntity, Camera):
 
     async def stream_source(self) -> str | None:
         """GET STREAMING ADDRESS."""
-        try:
-            return await self.coordinator.device_manager.async_get_device_stream(
-                self._device
-            )
-        except ImouException as e:
-            raise HomeAssistantError(e.message)  # noqa: B904
+        #try:
+        #    return await self.coordinator.device_manager.async_get_device_stream(
+        #        self._device
+        #    )
+        #except ImouException as e:
+        #    raise HomeAssistantError(e.message)  # noqa: B904
 
     async def async_camera_image(
         self, width: int | None = None, height: int | None = None
     ) -> bytes | None:
         """Return bytes of camera image."""
-        try:
-            return await self.coordinator.device_manager.async_get_device_image(
-                self._device
-            )
-        except ImouException as e:
-            raise HomeAssistantError(e.message)  # noqa: B904
+        #try:
+        #    return await self.coordinator.device_manager.async_get_device_image(
+        #        self._device
+        #    )
+        #except ImouException as e:
+        #    raise HomeAssistantError(e.message)  # noqa: B904
 
     @property
     def is_recording(self) -> bool:
