@@ -25,7 +25,7 @@ class ImouDataUpdateCoordinator(DataUpdateCoordinator):
             hass,
             LOGGER,
             name="ImouDataUpdateCoordinator",
-            update_interval=timedelta(seconds=60),
+            update_interval=timedelta(seconds=900),
             always_update=True,
         )
         self._device_manager = device_manager
