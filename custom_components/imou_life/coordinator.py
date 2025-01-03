@@ -4,7 +4,6 @@ import asyncio
 from datetime import timedelta
 import logging
 
-import asyncio.timeout
 from pyimouapi.ha_device import ImouHaDevice, ImouHaDeviceManager
 
 from homeassistant.core import HomeAssistant

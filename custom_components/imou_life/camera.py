@@ -1,3 +1,4 @@
+"""Imou camera entity."""
 import logging
 
 from pyimouapi.exceptions import ImouException
