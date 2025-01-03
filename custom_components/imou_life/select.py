@@ -1,12 +1,11 @@
 import logging
 
-from pyimouapi.exceptions import ImouException
-
 from homeassistant.components.select import SelectEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyimouapi.exceptions import ImouException
 
 from .const import DOMAIN, PARAM_CURRENT_OPTION, PARAM_OPTIONS
 from .entity import ImouEntity

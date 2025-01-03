@@ -1,4 +1,34 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-json
+        exclude: (.vscode|.devcontainer)
+  - repo: local
+    hooks:
+      - id: black
+        name: black
+        entry: black
+        language: system
+        types: [python]
+        require_serial: true
+        files: ^((custom_components|test)/.+)?[^/]+\.(py|pyi)$
+      - id: flake8
+        name: flake8
+        entry: flake8
+        language: system
+        types: [python]
+        require_serial: true
+        files: ^((custom_components|test)/.+)?[^/]+\.(py|pyi)$
+        args:
+          - --ignore=E501,W503
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.8.3
     hooks:
@@ -16,27 +46,8 @@ repos:
           - --skip="./.*,*.csv,*.json,*.ambr"
           - --quiet-level=2
         exclude_types: [csv, json, html]
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
-    hooks:
-      - id: check-executables-have-shebangs
-        stages: [manual]
-      - id: check-json
-        exclude: (.vscode|.devcontainer)
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.3
     hooks:
       - id: prettier
-  - repo: https://github.com/cdce8p/python-typing-update
-    rev: v0.6.0
-    hooks:
-      # Run `python-typing-update` hook manually from time to time
-      # to update python typing syntax.
-      # Will require manual work, before submitting changes!
-      # pre-commit run --hook-stage manual python-typing-update --all-files
-      - id: python-typing-update
-        stages: [manual]
-        args:
-          - --py311-plus
-          - --force
-          - --keep-updates
+        files: ^((custom_components|test)/.+)?[^/]+\.(py|pyi)$

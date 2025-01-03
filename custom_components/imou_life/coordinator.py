@@ -1,13 +1,12 @@
 """Provides the imou DataUpdateCoordinator."""
 
 import asyncio
-from datetime import timedelta
 import logging
-
-from pyimouapi.ha_device import ImouHaDevice, ImouHaDeviceManager
+from datetime import timedelta
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from pyimouapi.ha_device import ImouHaDevice, ImouHaDeviceManager
 
 _LOGGER = logging.getLogger(__name__)
 

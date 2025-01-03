@@ -3,14 +3,13 @@
 import asyncio
 import logging
 
-from pyimouapi.device import ImouDeviceManager
-from pyimouapi.ha_device import ImouHaDeviceManager
-from pyimouapi.openapi import ImouOpenApiClient
-
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceEntry
+from pyimouapi.device import ImouDeviceManager
+from pyimouapi.ha_device import ImouHaDeviceManager
+from pyimouapi.openapi import ImouOpenApiClient
 
 from .const import DOMAIN, PARAM_API_URL, PARAM_APP_ID, PARAM_APP_SECRET, PLATFORMS
 from .coordinator import ImouDataUpdateCoordinator
