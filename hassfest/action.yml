@@ -1,8 +1,8 @@
-name: 'Home Assistant: hassfest'
-description: 'Home Assistant: hassfest'
+name: "Home Assistant: hassfest"
+description: "Home Assistant: hassfest"
 runs:
   using: "composite"
-  steps: 
+  steps:
     - shell: bash
       run: echo "::add-matcher::${{ github.action_path }}/problem-matcher.json"
 
