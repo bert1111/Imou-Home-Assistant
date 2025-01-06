@@ -1,10 +1,9 @@
-"""An abstract class commom to all IMOU entities."""
-
-from pyimouapi.ha_device import DeviceStatus, ImouHaDevice
+"""An abstract class common to all IMOU entities."""
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from pyimouapi.ha_device import DeviceStatus, ImouHaDevice
 
 from . import ImouDataUpdateCoordinator
 from .const import DOMAIN, PARAM_STATUS

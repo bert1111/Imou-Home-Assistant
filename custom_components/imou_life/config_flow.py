@@ -2,12 +2,11 @@
 
 from typing import Any
 
-from pyimouapi.exceptions import ImouException
-from pyimouapi.openapi import ImouOpenApiClient
 import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.config_entries import ConfigFlowResult
+from pyimouapi.exceptions import ImouException
+from pyimouapi.openapi import ImouOpenApiClient
 
 from .const import (
     CONF_API_URL_FK,
