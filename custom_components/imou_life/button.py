@@ -1,12 +1,11 @@
 """Support for Imou button controls."""
 
-from pyimouapi.exceptions import ImouException
-
 from homeassistant.components.button import ButtonDeviceClass, ButtonEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyimouapi.exceptions import ImouException
 
 from .const import DOMAIN, PARAM_RESTART_DEVICE
 from .entity import ImouEntity

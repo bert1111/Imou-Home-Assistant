@@ -3,24 +3,23 @@
 import asyncio
 import logging
 
-from pyimouapi.device import ImouDeviceManager
-from pyimouapi.ha_device import ImouHaDeviceManager
-from pyimouapi.openapi import ImouOpenApiClient
-
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceEntry
+from pyimouapi.device import ImouDeviceManager
+from pyimouapi.ha_device import ImouHaDeviceManager
+from pyimouapi.openapi import ImouOpenApiClient
 
 from .const import DOMAIN, PARAM_API_URL, PARAM_APP_ID, PARAM_APP_SECRET, PLATFORMS
 from .coordinator import ImouDataUpdateCoordinator
 
-LOGGER: logging.Logger = logging.getLogger(__package__)
+_LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
 async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
     """Set up entry."""
-    LOGGER.info("starting setup imou")
+    _LOGGER.info("starting setup imou")
     imou_client = ImouOpenApiClient(
         config.data.get(PARAM_APP_ID),
         config.data.get(PARAM_APP_SECRET),
@@ -40,7 +39,7 @@ async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Handle removal of an entry."""
-    LOGGER.info("Unloading entry %s", entry.entry_id)
+    _LOGGER.info("Unloading entry %s", entry.entry_id)
     unloaded = all(
         await asyncio.gather(
             *[
@@ -67,7 +66,7 @@ async def async_remove_devices(hass: HomeAssistant, config_entry_id: str):
     for device_entry in device_registry_object.devices.get_devices_for_config_entry_id(
         config_entry_id
     ):
-        LOGGER.info("remove device %s", device_entry.id)
+        _LOGGER.info("remove device %s", device_entry.id)
         device_registry_object.async_remove_device(device_entry.id)
     return True
 
